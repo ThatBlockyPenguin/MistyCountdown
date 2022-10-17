@@ -57,7 +57,10 @@ function mistyOpen() {
   setInterval(() => {
     setColours(colourScale1(i), colourScale2(i));
     
+    i = Number.parseFloat(i).toPrecision(12);
     i += 0.2;
+
+    console.log(i);
     
     if(i >= 1) {
       i = 0;
