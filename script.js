@@ -61,7 +61,7 @@ function mistyOpen() {
       i = 0;
       generateTargetColours();
     }
-  }, 50);
+  }, 35);
 }
 
 function generateTargetColours() {
