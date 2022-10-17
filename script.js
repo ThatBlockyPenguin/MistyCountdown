@@ -1,5 +1,5 @@
 const userLocale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
-const mistyOpens = Date.now() + (7 * 1000)//new Date("October 21 2022 20:00:00 GMT+0000").getTime();
+const mistyOpens = new Date("October 21 2022 20:00:00 GMT+0000").getTime();
 
 const counter = document.getElementById('counter');
 const message = document.getElementById('message');
