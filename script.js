@@ -1,5 +1,5 @@
 const userLocale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
-const mistyOpens = Date.now() - (7 * 1000)//new Date("October 21 2022 20:00:00 GMT+0000").getTime();
+const mistyOpens = Date.now() + (7 * 1000)//new Date("October 21 2022 20:00:00 GMT+0000").getTime();
 
 const counter = document.getElementById('counter');
 const message = document.getElementById('message');
@@ -19,9 +19,7 @@ let hasCelebrated = false;
 let colourScale1;
 let colourScale2;
 
-if (Date.now() > mistyOpens)
-  mistyOpen();
-else
+if (Date.now() < mistyOpens)
   message.innerText = 'Until MistyLands re-opens!';
 
 setInterval(() => {
@@ -57,16 +55,13 @@ function mistyOpen() {
   setInterval(() => {
     setColours(colourScale1(i), colourScale2(i));
     
-    i = Number.parseFloat(i).toPrecision(12);
-    i += 0.2;
-
-    console.log(i);
+    i += 0.1;
     
     if(i >= 1) {
       i = 0;
       generateTargetColours();
     }
-  }, 75);
+  }, 50);
 }
 
 function generateTargetColours() {
