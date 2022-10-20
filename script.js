@@ -3,6 +3,9 @@ const mistyOpens = new Date("October 21 2022 20:00:00 GMT+0000").getTime();
 
 const counter = document.getElementById('counter');
 const message = document.getElementById('message');
+const epilepsyWarning = document.getElementById('epilepsyWarning');
+
+const epilepsyMessage = epilepsyWarning.innerText.trim();
 
 const hexChars = '0123456789ABCDEF';
 
@@ -15,20 +18,39 @@ const humanizer = humanizeDuration.humanizer({
 let counterPrepend = '';
 let counterAppend = '';
 let hasCelebrated = false;
+let hasShownEpilepsyWarning = false;
 
 let colourScale1;
 let colourScale2;
 
-if (Date.now() < mistyOpens)
+const loadedAt = Date.now();
+
+if (loadedAt < mistyOpens)
   message.innerText = 'Until MistyLands re-opens!';
+else {
+  alert(`${epilepsyMessage} Press OK to continue to the site.`);
+  hasShownEpilepsyWarning = true;
+}
 
 setInterval(() => {
   const now = Date.now();
   let timeLeft = mistyOpens - now;
 
+  if (timeLeft <= 60 * 1000 && !hasShownEpilepsyWarning) {
+    epilepsyWarning.classList.add('block');
+    epilepsyWarning.classList.add('swipeDown');
+    hasShownEpilepsyWarning = true;
+  }
+
   if (timeLeft <= 0 && !hasCelebrated) {
     mistyOpen();
     hasCelebrated = true;
+  }
+
+  // If 10 seconds have passed since timer reached zero
+  if (timeLeft < 10 * -1000) {
+    epilepsyWarning.classList.remove('swipeDown');
+    epilepsyWarning.classList.add('swipeUp');
   }
 
   counter.innerText = counterPrepend + humanizer(timeLeft) + counterAppend;
@@ -49,15 +71,15 @@ function mistyOpen() {
   confetti.start();
 
   generateTargetColours();
-    
+
   let i = 0;
-  
+
   setInterval(() => {
     setColours(colourScale1(i), colourScale2(i));
-    
+
     i += 0.1;
-    
-    if(i >= 1) {
+
+    if (i >= 1) {
       i = 0;
       generateTargetColours();
     }
@@ -72,10 +94,10 @@ function generateTargetColours() {
 
 function generateColour() {
   let color = '#';
-  
-  for(var i = 0; i < 6; i++)
+
+  for (var i = 0; i < 6; i++)
     color += hexChars[Math.floor(Math.random() * 16)];
-  
+
   return color;
 }
 
@@ -85,9 +107,9 @@ function getComplementaryColour(colour) {
   const i = parseInt(c, 16);
   let v = ((1 << 4 * c.length) - 1 - i).toString(16);
 
-  while(v.length < c.length)
+  while (v.length < c.length)
     v = '0' + v;
-  
+
   return '#' + v;
 }
 

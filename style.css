@@ -29,23 +29,59 @@ div {
 div.maintext {
   font-size: 7vw;
   font-weight: 600;
-  animation: float 4s linear infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
 div.subtext, div.noscript {
   font-size: 4vw;
 }
 
-@keyframes float{
-  0% {
+#epilepsyWarning {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 8vh;
+  background-color: white;
+  color: black;
+  line-height: 8vh;
+  font-weight: 600;
+}
+
+.swipeUp {
+  animation: swipe-up 2s ease 1 forwards;
+}
+
+.block {
+  display: block !important;
+}
+
+.swipeDown {
+  animation: swipe-down 2s ease 1 forwards;
+}
+
+@keyframes float {
+  0%, 100% {
     transform: scale(85%);
   }
   
   50% {
     transform: scale(100%);
   }
+}
+
+@keyframes swipe-up {
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes swipe-down {
+  0% {
+    transform: translateY(-100%);
+  }
   
   100% {
-    transform: scale(85%);
+    transform: translateY(0%);
   }
 }
